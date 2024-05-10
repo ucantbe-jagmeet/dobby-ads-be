@@ -25,9 +25,24 @@ const authenticate = require('./middleware/authenticate');
 //     max: 100,
 //   })
 // );
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://dobby-ads-fe.vercel.app'
+];
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  optionsSuccessStatus: 200
+};
+
 app.use(express.json());
 // extra packages
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(xss());
 
 // for image uploading
