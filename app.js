@@ -9,7 +9,7 @@ const path = require('path');
 
 const express = require("express");
 const app = express();
-
+const fileUpload = require("express-fileupload");
 //connectDB
 const connectDB = require("./db/connect");
 
@@ -40,7 +40,9 @@ const corsOptions = {
   optionsSuccessStatus: 200
 };
 
+app.use('/uploads', express.static('uploads'));
 app.use(express.json());
+
 // extra packages
 app.use(cors(corsOptions));
 app.use(xss());
@@ -49,8 +51,7 @@ app.use(xss());
 
 
 //routes
-app.use('/uploads', express.static('uploads'));
-app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/auth", authenticate, authRouter);
 app.use("/api/v1", authenticate, imageRouter);
 
 const port = process.env.PORT || 3333;
