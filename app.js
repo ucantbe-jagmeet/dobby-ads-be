@@ -34,9 +34,9 @@ app.use(xss());
 
 
 //routes
+app.use('/uploads', express.static('uploads'));
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1", authenticate, imageRouter);
-app.use('/api/v1/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const port = process.env.PORT || 3333;
 
