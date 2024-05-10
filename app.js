@@ -51,7 +51,7 @@ app.use(xss());
 
 
 //routes
-app.use("/api/v1/auth", authenticate, authRouter);
+app.use("/api/v1/auth", authRouter);
 app.use("/api/v1", authenticate, imageRouter);
 
 const port = process.env.PORT || 3333;
